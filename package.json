@@ -1,0 +1,26 @@
+{
+  "name": "accessibility-tests-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for accessibility tests from real world examples",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luigicr/accessibility-tests-boilerplate.git"
+  },
+  "keywords": [
+    "accesibility",
+    "boilerplate",
+    "html",
+    "css",
+    "js"
+  ],
+  "author": "Luigi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luigicr/accessibility-tests-boilerplate/issues"
+  },
+  "homepage": "https://github.com/luigicr/accessibility-tests-boilerplate#readme"
+}
