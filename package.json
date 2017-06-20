@@ -4,7 +4,11 @@
   "description": "Boilerplate for accessibility tests from real world examples",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server/app.js",
+    "prestart": "npm-run-all --sequential gulp hellomessage",
+    "start": "npm-run-all open:src",
+    "hellomessage" : "node server/startMessage.js",
+    "gulp": "gulp",
+    "open:src": "node ./server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,13 +23,18 @@
     "js"
   ],
   "author": "Luigi",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "bugs": {
     "url": "https://github.com/luigicr/accessibility-tests-boilerplate/issues"
   },
   "homepage": "https://github.com/luigicr/accessibility-tests-boilerplate#readme",
   "devDependencies": {
-    "bower": "^1.8.0",
-    "express": "^4.15.3"
+    "bootstrap-sass": "^3.3.7",
+    "express": "^4.15.3",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
+    "gulp-sass": "^3.1.0",
+    "npm-run-all": "^4.0.2"
   }
 }
