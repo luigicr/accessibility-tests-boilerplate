@@ -1,7 +1,8 @@
 /* gulpfile.js */
 var gulp = require('gulp'),
-  sass = require('gulp-sass');
-
+  sass = require('gulp-sass'),
+  inject = require('gulp-inject'),
+  series = require('stream-series');
 
 // source and distribution folder
 // eslint-disable-next-line one-var
@@ -18,14 +19,21 @@ var source = 'src/',
   },
   // Our scss source folder: .scss files
   scss = {
-    in: source + 'scss/main.scss',
+    in: source + 'scss/**/*.scss',
+    vendor: source + 'vendor/**/*.scss',
     out: dest + 'css/',
+    outVendor: dest + 'css/vendor',
     watch: source + 'scss/**/*',
+    sassVendorOpts: {
+      outputStyle: 'compressed',
+      precison: 3,
+      errLogToConsole: false,
+      includePaths: [bootstrapSass.in + 'assets/stylesheets']
+    },
     sassOpts: {
       outputStyle: 'expanded',
       precison: 3,
-      errLogToConsole: true,
-      includePaths: [bootstrapSass.in + 'assets/stylesheets']
+      errLogToConsole: true
     }
   };
 
@@ -38,15 +46,33 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest(fonts.out));
 });
 
+// compile vendor
+gulp.task('sassVendor', ['fonts'], function () {
+  'use strict';
+  return gulp.src(scss.vendor)
+    .pipe(sass(scss.sassVendorOpts))
+    .pipe(gulp.dest(scss.outVendor));
+});
+
 // compile scss
-gulp.task('sass', ['fonts'], function () {
+gulp.task('sass', function () {
   'use strict';
   return gulp.src(scss.in)
     .pipe(sass(scss.sassOpts))
     .pipe(gulp.dest(scss.out));
 });
 
+gulp.task('html', ['sassVendor', 'sass'], function () {
+  'use strict';
+  var vendorCss = gulp.src(['dist/css/vendor/**/*.css'], { read: false }),
+    appCss = gulp.src(['dist/css/*.css'], { read: false });
+
+  return gulp.src('src/index.html')
+    .pipe(inject(series(vendorCss, appCss)))
+    .pipe(gulp.dest('dist'));
+});
+
 // default task
-gulp.task('default', ['sass'], function () {
+gulp.task('default', ['html'], function () {
   'use strict';
 });
