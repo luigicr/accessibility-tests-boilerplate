@@ -2,7 +2,9 @@
 var gulp = require('gulp'),
   sass = require('gulp-sass'),
   inject = require('gulp-inject'),
-  series = require('stream-series');
+  series = require('stream-series'),
+  uglify = require('gulp-uglify'),
+  concat = require('gulp-concat');
 
 // source and distribution folder
 // eslint-disable-next-line one-var
@@ -35,6 +37,14 @@ var source = 'src/',
       precison: 3,
       errLogToConsole: true
     }
+  },
+  // Our scss source folder: .scss files
+  js = {
+    in: source + 'js/**/*.js',
+    inVendor: source + 'vendor/**/*.js',
+    out: dest + 'js/',
+    outVendor: dest + 'js/vendor',
+    watch: source + 'js/**/*'
   };
 
 // copy bootstrap required fonts to dest
@@ -62,13 +72,29 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(scss.out));
 });
 
-gulp.task('html', ['sassVendor', 'sass'], function () {
+gulp.task('js', function() {
+  gulp.src([
+    'node_modules/jquery/dist/jquery.js',
+    'node_modules/bootstrap/dist/js/bootstrap.js',
+    js.inVendor
+  ]).pipe(uglify())
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest(js.outVendor));
+
+  return gulp.src([js.in])
+    .pipe(concat('script.js'))
+    .pipe(gulp.dest(js.out));
+});
+
+gulp.task('html', ['sassVendor', 'sass', 'js'], function () {
   'use strict';
   var vendorCss = gulp.src(['dist/css/vendor/**/*.css'], { read: false }),
-    appCss = gulp.src(['dist/css/*.css'], { read: false });
+    appCss = gulp.src(['dist/css/*.css'], { read: false }),
+    vendorJs = gulp.src(['dist/js/vendor/**/*.js'], { read: false }),
+    appJs = gulp.src(['dist/css/*.js'], { read: false });
 
   return gulp.src('src/index.html')
-    .pipe(inject(series(vendorCss, appCss)))
+    .pipe(inject(series(vendorCss, appCss, vendorJs, appJs)))
     .pipe(gulp.dest('dist'));
 });
 
