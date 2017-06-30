@@ -4,7 +4,8 @@ var gulp = require('gulp'),
   inject = require('gulp-inject'),
   series = require('stream-series'),
   uglify = require('gulp-uglify'),
-  concat = require('gulp-concat');
+  concat = require('gulp-concat'),
+  del = require('del');
 
 // source and distribution folder
 // eslint-disable-next-line one-var
@@ -98,7 +99,12 @@ gulp.task('html', ['sassVendor', 'sass', 'js'], function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('clean', function() {
+  // You can use multiple globbing patterns as you would with `gulp.src`
+  return del(['dist/**/*.*']);
+});
+
 // default task
-gulp.task('default', ['html'], function () {
+gulp.task('default', ['clean', 'html'], function () {
   'use strict';
 });
