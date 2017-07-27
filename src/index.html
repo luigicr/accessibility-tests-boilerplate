@@ -2,12 +2,37 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Accessibility Tests</title>
+	<title>Accessibility Test 01</title>
   <!-- inject:css -->
   <!-- endinject -->
 </head>
 <body>
-	<h1>Boilerplate</h1>
+  <div class="container">
+    <h1>Example 01</h1>
+    <p></p>
+    <form class="form-horizontal form-contenedor">
+      <fieldset>
+
+       <!-- Form Name -->
+        <legend>Form</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-1 control-label" for="name">Name</label>
+          <div class="col-md-4">
+            <input id="name" name="name" type="text" placeholder="Add your name" class="form-control input-md" required="">
+          </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-1 control-label" for="birthdate">Birth date <span class="sr-only">Please add your birth date in the following format DD/MM/YY</span></label>
+          <div class="col-md-4">
+            <input id="birthdate" name="birthdate" type="text" placeholder="Add your birth date" class="form-control input-md" required="">
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
   <!-- inject:js -->
   <!-- endinject -->
 </body>

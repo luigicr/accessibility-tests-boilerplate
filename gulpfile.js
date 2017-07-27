@@ -5,7 +5,9 @@ var gulp = require('gulp'),
   series = require('stream-series'),
   uglify = require('gulp-uglify'),
   concat = require('gulp-concat'),
-  del = require('del');
+  del = require('del'),
+  fs = require('fs'),
+  eslint = require('gulp-eslint');
 
 // source and distribution folder
 // eslint-disable-next-line one-var
@@ -45,7 +47,8 @@ var source = 'src/',
     inVendor: source + 'vendor/**/*.js',
     out: dest + 'js/',
     outVendor: dest + 'js/vendor',
-    watch: source + 'js/**/*'
+    watch: source + 'js/**/*',
+    globals: ['$', 'jQuery', 'M']
   };
 
 // copy bootstrap required fonts to dest
@@ -73,6 +76,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(scss.out));
 });
 
+// compile js vendor
 gulp.task('js', function() {
   gulp.src([
     'node_modules/jquery/dist/jquery.js',
@@ -87,12 +91,24 @@ gulp.task('js', function() {
     .pipe(gulp.dest(js.out));
 });
 
-gulp.task('html', ['sassVendor', 'sass', 'js'], function () {
+gulp.task('es-lint', function () {
+  var file = fs.createWriteStream('report-es-lint.html');
+  return gulp.src(
+    [js.in])
+  .pipe(eslint({
+    globals: js.globals
+  }))
+  .pipe(eslint.format())
+  .pipe(eslint.formatEach('html', file))
+  .pipe(eslint.failAfterError());
+});
+
+gulp.task('html', ['sassVendor', 'sass', 'js', 'es-lint'], function () {
   'use strict';
   var vendorCss = gulp.src(['dist/css/vendor/**/*.css'], { read: false }),
     appCss = gulp.src(['dist/css/*.css'], { read: false }),
     vendorJs = gulp.src(['dist/js/vendor/**/*.js'], { read: false }),
-    appJs = gulp.src(['dist/css/*.js'], { read: false });
+    appJs = gulp.src(['dist/js/*.js'], { read: false });
 
   return gulp.src('src/index.html')
     .pipe(inject(series(vendorCss, appCss, vendorJs, appJs)))
