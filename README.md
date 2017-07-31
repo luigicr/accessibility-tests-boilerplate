@@ -23,5 +23,5 @@ Use NVDA on Windows with Firefox and read the page as normal
 
 ## For the solution
 
-Using your own words please add a brief description of the solution...
+Using your own words please add a brief description of the solution.  
 Add a reference URL for the solution.
