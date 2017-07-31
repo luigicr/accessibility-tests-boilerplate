@@ -9,7 +9,8 @@ Concerning an issue in NVDA where spaces are not read out for offscreen text, an
 - Go to repository files.
 - Run npm install to install necessary files:
 ```javascript
-npm install```
+npm install
+```
 - Run npm start to run the project:
 ```javascript
 npm start
