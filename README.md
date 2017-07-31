@@ -1,5 +1,5 @@
 # Reader read without spaces
-Concerning an issue in NVDA where spaces are not read out for offscreen text, and in VoiceOver where text is read out character-by-character.
+Concerning an issue in NVDA where spaces are not read out for offscreen text.
 
 ## To run exercise
 
