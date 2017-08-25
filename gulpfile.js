@@ -7,7 +7,8 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   del = require('del'),
   fs = require('fs'),
-  eslint = require('gulp-eslint');
+  eslint = require('gulp-eslint'),
+  image = require('gulp-imagemin');
 
 // source and distribution folder
 // eslint-disable-next-line one-var
@@ -50,6 +51,12 @@ var source = 'src/',
     watch: source + 'js/**/*',
     globals: ['$', 'jQuery', 'M']
   };
+  // Our scss source folder: .scss files
+  img = {
+    in: source + 'img/**/*.+(png|jpg|gif|svg)',
+    out: dest + 'images/',
+    watch: source + 'img/**/*'
+  };
 
 // copy bootstrap required fonts to dest
 gulp.task('fonts', function () {
@@ -80,7 +87,7 @@ gulp.task('sass', function () {
 gulp.task('js', function() {
   gulp.src([
     'node_modules/jquery/dist/jquery.js',
-    'node_modules/bootstrap/dist/js/bootstrap.js',
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
     js.inVendor
   ]).pipe(uglify())
     .pipe(concat('vendor.js'))
@@ -103,7 +110,13 @@ gulp.task('es-lint', function () {
   .pipe(eslint.failAfterError());
 });
 
-gulp.task('html', ['sassVendor', 'sass', 'js', 'es-lint'], function () {
+gulp.task('images', function(){
+  return gulp.src(img.in)
+  .pipe(image())
+  .pipe(gulp.dest(img.out))
+});
+
+gulp.task('html', ['sassVendor', 'sass', 'js', 'es-lint', 'images'], function () {
   'use strict';
   var vendorCss = gulp.src(['dist/css/vendor/**/*.css'], { read: false }),
     appCss = gulp.src(['dist/css/*.css'], { read: false }),
