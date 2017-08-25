@@ -1,5 +1,5 @@
 # Modal Screen reader reads content behind
-Concerning an issue in NVDA where the content behind the modal can be reached and read.
+Concerning an issue in NVDA where the content behind the modal can be reached by the screen reader.
 
 ## To run exercise
 
@@ -20,7 +20,7 @@ npm start
 
 Use NVDA on Windows with major browser
 - Open the modal
-- Press Shift + up or just up or just tab (depends on browser) until the modal lost the focus and the screen reader start reading the content behind.
+- Press 'Shift + Up' or 'Ctrl + Up' just 'Up' or just 'tab' (depends on browser) until the modal lost the focus and the screen reader start reading the content behind.
 - In IE there are more chances to happens the error 
 
 ## For the solution
