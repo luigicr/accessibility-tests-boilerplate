@@ -7,7 +7,57 @@
   <!-- endinject -->
 </head>
 <body>
-	<h1>Boilerplate</h1>
+	<div class="container">
+    <h2>Reader read without spaces</h2>
+    <h3>Instructions</h3>
+    <ul>
+      <li>
+        <p>Use NVDA on Windows with alongsided a major browser</p>
+      </li>
+      <li>
+        <p>Open the modal</p>
+      </li>
+      <li>
+        <p>Press Shift + up or just up or just tab (depends on browser) until the modal lost the focus and the screen reader start reading the content behind</p>
+      </li>
+      <li>
+        <p>Evidence</p>
+        <div class="row">
+          <div class="col-xs-6">
+            <img src="/images/img-error.png" alt="Screen reader reads content behind modal window" class="img-responsive">
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          Launch demo modal
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia tenetur totam nobis veniam, molestiae, eum itaque minus earum perspiciatis iste quas architecto debitis praesentium distinctio culpa provident asperiores nesciunt atque.</div>
+                <div>Harum, expedita. Repellat quis quisquam voluptas beatae inventore excepturi similique veniam, et! Ipsum est voluptates labore mollitia modi nobis similique quis, debitis nam. Libero sapiente earum molestias atque, illo officia.</div>
+                <div>Nulla autem minus quasi fugit nostrum expedita iure esse fugiat, vero at delectus cupiditate distinctio minima nisi placeat rerum, deserunt optio iusto in eum. Itaque iste amet libero accusantium minima.</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- inject:js -->
   <!-- endinject -->
 </body>
